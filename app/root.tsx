@@ -9,6 +9,11 @@ import {
 
 import type { Route } from "./+types/root";
 import "./app.css";
+import Navbar from "./components/Navbar";
+import "./utils/i18n";
+import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import Cookies from "js-cookie";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -24,8 +29,18 @@ export const links: Route.LinksFunction = () => [
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const { i18n } = useTranslation();
+
+  useEffect(() => {
+    const savedLang = Cookies.get("lang") || "en";
+    i18n.changeLanguage(savedLang);
+
+    document.documentElement.lang = savedLang;
+    document.documentElement.dir = savedLang === "ar" ? "rtl" : "ltr";
+  }, [i18n]);
+
   return (
-    <html lang="en">
+    <html>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -33,6 +48,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
+        <div>fuck</div>
+        <Navbar />
         {children}
         <ScrollRestoration />
         <Scripts />
