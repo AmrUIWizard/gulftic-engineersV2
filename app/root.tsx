@@ -11,8 +11,8 @@ import type { Route } from "./+types/root";
 import "./app.css";
 import Navbar from "./components/Navbar";
 import "./utils/i18n";
-import { useEffect } from "react";
-import { useTranslation } from "react-i18next";
+import { useEffect, useState } from "react";
+import { useSSR, useTranslation } from "react-i18next";
 import Cookies from "js-cookie";
 
 export const links: Route.LinksFunction = () => [
@@ -30,13 +30,15 @@ export const links: Route.LinksFunction = () => [
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const { i18n } = useTranslation();
+  const savedLang = Cookies.get("lang") || "en";
 
   useEffect(() => {
-    const savedLang = Cookies.get("lang") || "en";
     i18n.changeLanguage(savedLang);
 
     document.documentElement.lang = savedLang;
     document.documentElement.dir = savedLang === "ar" ? "rtl" : "ltr";
+
+    console.log(document.documentElement.dir);
   }, [i18n]);
 
   return (
