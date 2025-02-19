@@ -1,3 +1,8 @@
 {
-  "welcome": "هذا اختبار قبول"
+  "welcome": "هذا اختبار قبول",
+  "home": "الرئيسية",
+  "applications": "الطلبات",
+  "tasks": "المهام",
+  "newReq": "طلب جديد",
+  "newSfda": "شهادة SFDA"
 }

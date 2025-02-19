@@ -9,7 +9,7 @@ import {
 
 import type { Route } from "./+types/root";
 import "./app.css";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/nav/Navbar";
 import "./utils/i18n";
 import { Suspense, useEffect, useState } from "react";
 import { useSSR, useTranslation } from "react-i18next";
@@ -29,21 +29,13 @@ export const links: Route.LinksFunction = () => [
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  const { i18n } = useTranslation();
-  const savedLang = Cookies.get("lang") || "en";
-
-  useEffect(() => {
-    i18n.changeLanguage(savedLang);
-
-    document.documentElement.lang = savedLang;
-    document.documentElement.dir = savedLang === "ar" ? "rtl" : "ltr";
-
-    console.log(document.documentElement.dir);
-  }, [i18n]);
+  const { i18n } = useTranslation(["ns1", "ns2", "ns3"]);
+  const lang = i18n.language;
+  const dir = lang == "ar" ? "rtl" : "ltr";
 
   return (
     <Suspense fallback="...is loading">
-      <html>
+      <html lang={lang} dir={dir}>
         <head>
           <meta charSet="utf-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -51,7 +43,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           <Links />
         </head>
         <body>
-          <div>fuck</div>
+          {/* <div>fuck</div> */}
           <Navbar />
           {children}
           <ScrollRestoration />

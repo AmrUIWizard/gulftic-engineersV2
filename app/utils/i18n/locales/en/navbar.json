@@ -1,3 +1,8 @@
 {
-  "welcome": "this is test agreement"
+  "welcome": "this is test agreement",
+  "home": "Home",
+  "applications": "Appliations",
+  "tasks": "Tasks",
+  "newReq": "New Request",
+  "newSfda": "New SFDA"
 }
